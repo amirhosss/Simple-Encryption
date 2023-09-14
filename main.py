@@ -50,8 +50,8 @@ def decrypt(password: str, iterations: int = 480_000):
     try:
         decrypted_data = f.decrypt(encrypted_data)
         print("Successful. Your data is:", str(decrypted_data, "utf-8"), sep="\n")
-    except InvalidToken:
-        print(f"Wrong password or corrupted data")
+    except Exception:
+        print(f"Wrong password or corrupted data. Please check your password or iterations")
 
 
 if __name__ == "__main__":
