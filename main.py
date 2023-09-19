@@ -9,7 +9,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 app = typer.Typer()
 
 
-@app.command()
+@app.command(help="Encrypt your data and make a file output")
 def encrypt(data: str, password: str, iterations: int = 480_000):
     password = bytes(password, "utf-8")
     salt = os.urandom(16)
@@ -26,7 +26,7 @@ def encrypt(data: str, password: str, iterations: int = 480_000):
         file.writelines([salt, b"\n", encrypted_data])
 
 
-@app.command()
+@app.command(help="Decrypt your data and print data in stdout")
 def decrypt(password: str, iterations: int = 480_000):
     password = bytes(password, "utf-8")
     with open("encrypted-data.txt", "rb") as file:
