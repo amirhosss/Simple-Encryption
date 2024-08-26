@@ -1,5 +1,6 @@
 import os
 import base64
+import getpass
 
 import typer
 from cryptography.fernet import Fernet
@@ -10,7 +11,9 @@ app = typer.Typer(rich_markup_mode=None, pretty_exceptions_enable=False)
 
 
 @app.command(help="Encrypt your data and make a file output")
-def encrypt(data: str, password: str, iterations: int = 480_000):
+def encrypt(iterations: int = 480_000):
+    data = getpass.getpass("Please enter you data: ").rstrip()
+    password = getpass.getpass("Enter your password for encryption: ").rstrip()
     password = bytes(password, "utf-8")
     salt = os.urandom(16)
 
@@ -27,7 +30,8 @@ def encrypt(data: str, password: str, iterations: int = 480_000):
 
 
 @app.command(help="Decrypt your data and print data in stdout")
-def decrypt(password: str, iterations: int = 480_000):
+def decrypt(iterations: int = 480_000):
+    password = getpass.getpass("Enter your password: ")
     password = bytes(password, "utf-8")
 
     try:
