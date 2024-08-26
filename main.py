@@ -30,12 +30,11 @@ def encrypt(iterations: int = 480_000):
 
 
 @app.command(help="Decrypt your data and print data in stdout")
-def decrypt(iterations: int = 480_000):
+def decrypt(file_name: str = "encrypted-data.txt", iterations: int = 480_000):
     password = getpass.getpass("Enter your password: ")
     password = bytes(password, "utf-8")
 
     try:
-        file_name = "encrypted-data.txt"
         with open(file_name, "rb") as file:
             salt = file.readline().rstrip()
             encrypted_data = file.readline()
